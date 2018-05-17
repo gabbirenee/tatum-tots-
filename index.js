@@ -1,21 +1,34 @@
 const app={
-    init: function (formSelector) {
+    init: function (selectors) {
         this.max=0
+        this.list=document.querySelector(selectors.listSelector)
         document   
-            .querySelector(formSelector)
+            .querySelector(selectors.formSelector)
             .addEventListener('submit', (ev) => {
                 ev.preventDefault()
                 this.handleSubmit(ev)
             })
     },
+
+    renderListItem: function (flick) {
+        const item =  document.createElement('li')
+        item.textContent = flick.name
+        return item
+    },
+
     handleSubmit: function (ev) {
         const f=ev.target
         const flick = {
             id: ++this.max,
             name: f.flickName.value,
         }
+        const item=this.renderListItem(flick)   //THIS will be the death of me
+        this.list.appendChild(item)
         console.log(flick)
         f.reset()
-    }
+    },
 }
-app.init('#flickForm')
+app.init({
+    formSelector: '#flickForm',
+    listSelector: '#flickList',
+})
