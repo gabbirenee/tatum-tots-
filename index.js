@@ -25,10 +25,10 @@ const app={
             name: f.flickName.value,
         }
         
-        this.flicks.push(flick)
+        this.flicks.unshift(flick)
         console.log(this.flicks)
         const item=this.renderListItem(flick)   //THIS will be the death of me
-        this.list.appendChild(item)
+        this.list.insertBefore(item, this.list.firstElementChild)
         console.log(flick)
         f.reset()
     },
