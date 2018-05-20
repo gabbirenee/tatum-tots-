@@ -32,7 +32,13 @@ const app={
         const button = ev.target
         const flick = button.parentNode.parentNode
         flick.style.backgroundColor='PowderBlue'
-
+        for(let i=0; i<this.flicks.length; i++)
+        {
+            if(this.flicks[i].id===flick.dataset.id)
+            {
+                this.flicks[i].fav=true
+            }
+        }
     },
 
     renderListItem(flick) {
@@ -58,6 +64,7 @@ const app={
         const flick = {
             id: ++this.max,
             name: f.flickName.value,
+            fav: false, 
         }
         
         this.flicks.unshift(flick)
