@@ -12,6 +12,24 @@ const app={
             })
     },
 
+    removeListItem(ev){
+        ev.preventDefault()
+        const button=ev.target
+        const flick = button.parentNode.parentNode
+        flick.remove()
+        for(let i=0; i<this.flicks.length; i++)
+        {
+            const indexId = this.flicks[i].id.toString()
+            if(flick.dataset.id===indexId){
+                this.flicks.splice(i, 1)
+                break
+            }
+        }
+
+
+        console.log(this.flicks)
+    },
+
     renderListItem(flick) {
         const item = this.template.cloneNode(true)
         item.classList.remove('template')
@@ -19,7 +37,10 @@ const app={
         item
           .querySelector('.flickName')
           .textContent = flick.name
-    
+        item.querySelector('button.alert.button').addEventListener('click', (ev)=>{
+            ev.preventDefault()
+            this.removeListItem(ev)
+        })
         return item
     },
 
