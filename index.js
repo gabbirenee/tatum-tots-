@@ -23,11 +23,16 @@ const app={
             if(flick.dataset.id===indexId){
                 this.flicks.splice(i, 1)
                 break
-            }
+            }        
         }
-
-
         console.log(this.flicks)
+    },
+
+    favoriteListItem(ev){
+        const button = ev.target
+        const flick = button.parentNode.parentNode
+        flick.style.backgroundColor='PowderBlue'
+
     },
 
     renderListItem(flick) {
@@ -40,6 +45,10 @@ const app={
         item.querySelector('button.alert.button').addEventListener('click', (ev)=>{
             ev.preventDefault()
             this.removeListItem(ev)
+        })
+        item.querySelector('button.warning.button').addEventListener('click', (ev)=>{
+            ev.preventDefault()
+            this.favoriteListItem(ev)
         })
         return item
     },
