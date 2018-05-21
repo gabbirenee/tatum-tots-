@@ -2,8 +2,8 @@
 //don't use commas between attributes, write new App() before you call init or any of those things 
 //Change init to constructor
 
-const app={
-    init(selectors) {
+class App {
+    constructor(selectors) {
         this.max=0
         this.list=document.querySelector(selectors.listSelector)
         this.flicks=[]
@@ -14,9 +14,9 @@ const app={
                 ev.preventDefault()
                 this.handleSubmit(ev)
             })
-    },
+    }
 
-    removeListItem(ev){
+    removeListItem (ev) {
         const button=ev.target
         const flick = button.parentNode.parentNode
         flick.remove()
@@ -28,9 +28,7 @@ const app={
                 break
             }        
         }
-        console.log(this.flicks)
-
-    },
+    }
 
     favoriteListItem(ev){
         const button = ev.target
@@ -45,7 +43,7 @@ const app={
             flick.dataset.fav=true
         }
 
-    },
+    }
 
     upFunction(flick, ev){
         const flickId=flick.id.toString()
@@ -59,7 +57,7 @@ const app={
 
             this.list.insertBefore(flickListItem, flickListItem.previousElementSibling)
         }
-    },
+    }
     
     downFunction(flick, ev){
         const flickId=flick.id.toString()
@@ -73,12 +71,12 @@ const app={
 
             this.list.insertBefore(flickListItem.nextElementSibling, flickListItem)
         }
-    },
+    }
 
     // editFunction()
     // {
 
-    // },
+    // }
 
     renderListItem(flick) {
         const item = this.template.cloneNode(true)
@@ -87,10 +85,10 @@ const app={
         item
           .querySelector('.flickName')
           .textContent = flick.name
-        item.querySelector('.remove.button').addEventListener('click', (ev)=>{ //for delete button
-            ev.preventDefault()
+        item.querySelector('.remove.button').addEventListener('click', (ev)=>{
             this.removeListItem(ev)
         })
+
         item.querySelector('.fav.button').addEventListener('click', (ev)=>{   //for fav button
             ev.preventDefault()
             this.favoriteListItem(ev)
@@ -108,7 +106,7 @@ const app={
         //     this.editFunction(flick, ev)
         // })
         return item
-    },
+    }
 
     handleSubmit(ev) {
         const f=ev.target
@@ -124,9 +122,10 @@ const app={
         this.list.insertBefore(item, this.list.firstElementChild)
         console.log(flick)
         f.reset()
-    },
+    }
 }
-app.init({
+
+const app =new App({
     formSelector: '#flickForm',
     listSelector: '#flickList',
     templateSelector: '.flick.template',
