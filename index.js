@@ -31,13 +31,43 @@ const app={
     favoriteListItem(ev){
         const button = ev.target
         const flick = button.parentNode.parentNode
-        flick.style.backgroundColor='PowderBlue'
-        for(let i=0; i<this.flicks.length; i++)
+
+        flick.classList.toggle("fav")
+        if(flick.dataset.fav===true)
         {
-            if(this.flicks[i].id===flick.dataset.id)
-            {
-                this.flicks[i].fav=true
-            }
+            flick.dataset.fav = false
+        }
+        else{
+            flick.dataset.fav=true
+        }
+
+    },
+
+    upFunction(flick, ev){
+        const flickId=flick.id.toString()
+        const flickListItem=ev.target.parentNode.parentNode
+        const position=this.flicks.indexOf(flick)
+        if(position>0)
+        {
+            const toSwitch=this.flicks[position-1]
+            this.flicks[position]=toSwitch
+            this.flicks[position-1]=flick
+
+            this.list.insertBefore(flickListItem, flickListItem.previousElementSibling)
+        }
+    },
+    
+    downFunction(flick, ev){
+        const flickId=flick.id.toString()
+        const flickListItem=ev.target.parentNode.parentNode
+        const position=this.flicks.indexOf(flick)
+        if(position<this.flicks.length-1)
+        {
+            const toSwitch=this.flicks[position+1]
+            this.flicks[position]=toSwitch
+            this.flicks[position+1]=flick
+
+            this.list.insertBefore(flickListItem.nextElementSibling, flickListItem)
         }
     },
 
@@ -48,13 +78,21 @@ const app={
         item
           .querySelector('.flickName')
           .textContent = flick.name
-        item.querySelector('button.alert.button').addEventListener('click', (ev)=>{
+        item.querySelector('button.alert.button').addEventListener('click', (ev)=>{ //for delete button
             ev.preventDefault()
             this.removeListItem(ev)
         })
-        item.querySelector('button.warning.button').addEventListener('click', (ev)=>{
+        item.querySelector('button.warning.button').addEventListener('click', (ev)=>{   //for fav button
             ev.preventDefault()
             this.favoriteListItem(ev)
+        })
+        item.querySelector('button.primary.button').addEventListener('click', (ev)=>{   //for up button
+            ev.preventDefault()
+            this.upFunction(flick, ev)
+        })
+        item.querySelector('button.secondary.button').addEventListener('click', (ev)=>{ //for down button
+            ev.preventDefault()
+            this.downFunction(flick, ev)
         })
         return item
     },
