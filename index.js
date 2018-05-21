@@ -1,3 +1,7 @@
+//Also could be: class App{}
+//don't use commas between attributes, write new App() before you call init or any of those things 
+//Change init to constructor
+
 const app={
     init(selectors) {
         this.max=0
@@ -13,7 +17,6 @@ const app={
     },
 
     removeListItem(ev){
-        ev.preventDefault()
         const button=ev.target
         const flick = button.parentNode.parentNode
         flick.remove()
@@ -26,6 +29,7 @@ const app={
             }        
         }
         console.log(this.flicks)
+
     },
 
     favoriteListItem(ev){
@@ -71,6 +75,11 @@ const app={
         }
     },
 
+    // editFunction()
+    // {
+
+    // },
+
     renderListItem(flick) {
         const item = this.template.cloneNode(true)
         item.classList.remove('template')
@@ -78,11 +87,11 @@ const app={
         item
           .querySelector('.flickName')
           .textContent = flick.name
-        item.querySelector('button.alert.button').addEventListener('click', (ev)=>{ //for delete button
+        item.querySelector('.remove.button').addEventListener('click', (ev)=>{ //for delete button
             ev.preventDefault()
             this.removeListItem(ev)
         })
-        item.querySelector('button.warning.button').addEventListener('click', (ev)=>{   //for fav button
+        item.querySelector('.fav.button').addEventListener('click', (ev)=>{   //for fav button
             ev.preventDefault()
             this.favoriteListItem(ev)
         })
@@ -94,6 +103,10 @@ const app={
             ev.preventDefault()
             this.downFunction(flick, ev)
         })
+        // item.querySelector('button.button').addEventListener('click', (ev)=>{ //for down button
+        //     ev.preventDefault()
+        //     this.editFunction(flick, ev)
+        // })
         return item
     },
 
